@@ -1,0 +1,47 @@
+{
+    "full_name": "Jhon Anthony Pano",
+    "nickname": "Tony",
+    "age": 24,
+    "birthdate": "March 08, 2002",
+    "nationality": "Filipino",
+    "address": "St. Napo, Bonot-Bonot, Buenavista, Bohol, Philippines 6333",
+    "college": "Buenavista Community College",
+    "degree": "BS in Information Technology",
+    "role": "Developer & IT Student",
+    "crush" : "classmate (`WAS` my crush)",
+    "income_source": "Freelance Programming, Design, and IT Support",
+    "services": ["Software Development", "Web Development", "Mobile App Development", "IT Support", "Graphic Design", "IoT"],
+    "languages_stack": ["Dart (Flutter)", "Kotlin", "Python", "C++", "C", "C#", "Java", "HTML/CSS/JS"],
+    "primary_language": "Java",
+    "os_preference": "Windows / Android",
+    "coding_style": "Functional, Clean, Unique",
+    "mbti": "INTP",
+    "work_ethic": "Night Owl",
+    "communication": "Direct, Technical, Witty",
+    "tech_philosophy": "Open Source & Process Isolation",
+    "core_value": "Efficiency",
+    "career_goal": "Software Engineer",
+    "spoken_languages": ["Bisaya", "English", "Tagalog"],
+    "work_history": [
+        "Waiter at GRG Catering Services",
+        "Warehouse & Delivery Assistant at CNS International",
+        "Collector at Avon Products",
+        "Waiter at Parilya Restaurant"
+    ],
+    "contact": {
+        "email": "jacpano@gmail.com",
+        "mobile": "+639938859567",
+        "facebook_link": "https://www.facebook.com/studentJPano"
+    },
+    "projects": "Contact for private portfolio access",
+    "ultimate_ambition": "Airline Pilot",
+    "relationship_status": "Single",
+    "hobbies": ["Gaming", "Coding", "Traveling", "Tech Exploration"],
+    "traits": ["Curious", "Analytical", "Introverted", "Creative", "Adaptable"],
+    "quotes": [
+        "A friend who befriends the enemy is an enemy.",
+        "Practicality hits, rarity vanishes.",
+        "Nothing is easy when you don't know how to do it.",
+        "While everyone does white, I’ll do black to balance the universe."
+    ]
+}

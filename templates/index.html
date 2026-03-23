@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Detector | Professional Analysis</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <canvas id="moving-bg"></canvas>
+
+    <header class="header">
+        <div class="brand">
+            <span class="logo-icon">✨</span>
+            <h1>AI Text Detector</h1>
+        </div>
+        <div class="header-actions">
+            <button id="ask-btn" class="btn-secondary">
+                <span class="btn-icon">💬</span>
+                <span class="btn-text">Ask Tony</span>
+            </button>
+            <button id="theme-toggle" class="btn-icon-only">
+                <span id="theme-icon">🌞</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <section class="panel left-panel">
+            <div class="panel-header" style="flex-direction: column; align-items: flex-start; gap: 1rem;">
+                <!-- Model Weight Configuration -->
+                <div class="weight-config">
+                    <div class="weight-header">
+                        <span class="label">Model Weights (%)</span>
+                        <div id="weight-status" class="status-indicator status-success">✅ 100%</div>
+                    </div>
+                    <!-- 
+                        NB = Naive Bayes (More Accurate)
+                        LSVM = Linear Support Vector Machine (Less Accurate)
+                        LR = Logistic Regression (Average)
+                    -->
+                    <div class="weight-inputs-grid">
+                        <div class="weight-field">
+                            <label>NB <span style="color: green; font-size: 0.7rem;">Good</span></label>
+                            <input type="number" id="w-nb" value="97" min="0" max="100" step="1"
+                                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                        </div>
+                        <div class="weight-field">
+                            <label>LSVM <span style="color: red; font-size: 0.7rem;">Bad</span></label>
+                            <input type="number" id="w-lsvm" value="1" min="0" max="100" step="1"
+                                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                        </div>
+                        <div class="weight-field">
+                            <label>LR <span style="color: orange; font-size: 0.7rem;">Average</span></label>
+                            <input type="number" id="w-lr" value="2" min="0" max="100" step="1"
+                                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-group-horizontal">
+                    <label for="test-slider">Iterations: <span id="slider-value">100</span></label>
+                    <input type="range" id="test-slider" min="1" max="1000" value="100">
+                </div>
+            </div>
+
+            <div class="editor-container">
+                <div class="editor-toolbar">
+                    <span class="label">Input Text</span>
+                    <div class="toolbar-actions">
+                        <button id="copy-btn" title="Copy Content">📋 Copy</button>
+                        <button id="clear-btn" title="Clear All">🗑️ Clear</button>
+                    </div>
+                </div>
+                <textarea id="input-text" placeholder="Paste your content here for deep analysis..."></textarea>
+
+                <div class="editor-footer">
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span id="progress-text">Ready to analyze</span>
+                        </div>
+                        <div class="progress-track">
+                            <div id="loading-bar" class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <button id="predict-btn" class="btn-primary">Predict Analysis</button>
+                </div>
+            </div>
+
+            <div class="results-summary">
+                <div class="final-result-card">
+                    <span class="result-label">Deep Analysis Result</span>
+                    <h2 id="final-result">Awaiting Input...</h2>
+                    <p id="disclaimer"
+                        style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem; opacity: 0.8; font-style: italic; min-height: 2.4em;">
+                        Use NB for best, use LSVM for long texts, and use LR for a balanced result. Adjust weights and
+                        iterations for optimal performance.
+                    </p>
+                </div>
+
+                <div class="table-wrapper">
+                    <table id="report-table">
+                        <thead>
+                            <tr>
+                                <th>Model Architecture</th>
+                                <th>Weight</th>
+                                <th>Raw Score</th>
+                                <th>Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel right-panel">
+            <div class="panel-header">
+                <div class="terminal-title">
+                    <div class="dot-group"><span></span><span></span><span></span></div>
+                    <h3>Analysis Terminal</h3>
+                </div>
+                <button id="stop-btn" class="btn-danger">STOP</button>
+            </div>
+            <div class="terminal-container">
+                <table id="terminal-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NB</th>
+                            <th>LSVM</th>
+                            <th>LR</th>
+                            <th>Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add this at the very bottom of your <body> -->
+    <div id="chat-widget" class="chat-hidden">
+        <div class="chat-header">
+            <span>🤖 Tony</span>
+            <button id="close-chat">×</button>
+        </div>
+        <div id="chat-messages"></div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask me something...">
+            <button id="send-chat">Send</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>
+            <strong>Harkov Corporation Presents</strong><br>
+            Crafted and Developed by<br>
+            <em>Toneiu's Hub</em>
+        </p>
+    </footer>
+
+    <!-- Link the new files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">
+    <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='moving_bg.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
